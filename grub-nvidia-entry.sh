@@ -13,16 +13,6 @@ if [[ $1 != '-f' && $1 != '--force' ]];then
 	fi
 fi
 
-printf "\nTo ensure Gnome detects the dGPU, switcheroo-control.service has to be kept alive.\n\n"
-if [[ `sudo cat /usr/lib/systemd/system/switcheroo-control.service | grep Restart=` == '' ]]; then
-    sudo sed -i '/ExecStart/s/$/\nRestart=on-success/' /usr/lib/systemd/system/switcheroo-control.service
-fi
-if [[ `sudo cat /usr/lib/systemd/system/switcheroo-control.service | grep RestartSec=` == '' ]]; then
-    sudo sed -i '/Restart=/s/$/\nRestartSec=5s/' /usr/lib/systemd/system/switcheroo-control.service
-fi
-
-# sudo cat /usr/lib/systemd/system/switcheroo-control.service
-
 # printf "\n----------------------\n\n"
 printf "Configuring GRUB Menu...\n"
 # OldKerPara=`sudo cat /etc/default/grub | grep GRUB_CMDLINE`
